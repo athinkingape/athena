@@ -5,6 +5,8 @@ import (
 	"testing"
 )
 
+// TODO(sanjay): write some more legit tests
+
 func TestSimple(t *testing.T) {
 	tr := &trie.Tree{}
 
