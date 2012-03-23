@@ -37,11 +37,10 @@ func main() {
 		if isPrefix {
 			log.Fatalf("line bigger than buffer")
 		}
-		if len(line) < 2 {
-			fmt.Fprintf(os.Stdout, "skipping \"%s\"\n", line)
-		} else {
-			t.Add(string(line[1 : len(line)-1]))
+		if len(line) >= 2 && line[0] == '"' && line[len(line)-1] == '"' {
+			line = line[1 : len(line)-1]
 		}
+		t.Add(string(line))
 
 		line, isPrefix, err = reader.ReadLine()
 	}
@@ -56,7 +55,6 @@ func main() {
 		pprof.WriteHeapProfile(f)
 		f.Close()
 	}
-	//t.Root.PrintStrings()
-	//fmt.Fprintf(os.Stdout, "Done building ternary search tree: %d nodes\n", t.Root.NodeCount())
+	fmt.Fprintf(os.Stdout, "Done building ternary search tree\n")
 	<-time.After(time.Hour * 24)
 }
