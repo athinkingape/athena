@@ -75,10 +75,6 @@ func (n *Node) printStrings(prefix []byte) {
 	n.Right.printStrings(prefix)
 }
 
-func (n *Node) PrintStrings() {
-	n.printStrings([]byte{})
-}
-
 func (n *Node) nodeCount(i *int) {
 	if n == nil {
 		return
@@ -87,10 +83,4 @@ func (n *Node) nodeCount(i *int) {
 	n.Left.nodeCount(i)
 	n.Center.nodeCount(i)
 	n.Right.nodeCount(i)
-}
-
-func (n *Node) NodeCount() int {
-	i := 0
-	n.nodeCount(&i)
-	return i
 }
