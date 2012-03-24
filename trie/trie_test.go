@@ -5,8 +5,6 @@ import (
 	"testing"
 )
 
-// TODO(sanjay): write some more legit tests
-
 func TestSimple(t *testing.T) {
 	t.Parallel()
 
@@ -18,6 +16,7 @@ func TestSimple(t *testing.T) {
 		"aed",
 		"aeed",
 		"Abc",
+		"Ab",
 	}
 
 	dne := []string{
