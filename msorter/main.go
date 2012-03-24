@@ -8,17 +8,16 @@ import (
 	"sort"
 )
 
-func rec(s []string) {
+func rec(s []string, w *bufio.Writer) {
 	l := len(s)
 	if l == 0 {
 		return
 	}
 
-	fmt.Println(s[l/2])
-	rec(s[:l/2])
-	rec(s[(l/2) + 1:])
+	fmt.Fprintf(w, "%s\n", s[l/2])
+	rec(s[:l/2], w)
+	rec(s[(l/2)+1:], w)
 }
-
 
 func main() {
 	strs := []string{}
@@ -38,5 +37,9 @@ func main() {
 	}
 
 	sort.Strings(strs)
-	rec(strs)
+
+	b := bufio.NewWriter(os.Stdout)
+	defer b.Flush()
+
+	rec(strs, b)
 }
