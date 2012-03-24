@@ -26,12 +26,7 @@ func main() {
 	}
 
 	reader := bufio.NewReader(f)
-	var (
-		line     []byte
-		isPrefix bool
-	)
-
-	line, isPrefix, err = reader.ReadLine()
+	line, isPrefix, err := reader.ReadLine()
 
 	for err == nil {
 		if isPrefix {
