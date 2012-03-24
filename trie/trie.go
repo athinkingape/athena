@@ -23,7 +23,7 @@ type Node struct {
 
 type Tree struct {
 	*Node
-	mu sync.RWMutex
+	sync.RWMutex
 }
 
 func (t *Tree) Add(s string) {
@@ -31,8 +31,8 @@ func (t *Tree) Add(s string) {
 		return
 	}
 
-	t.mu.Lock()
-	defer t.mu.Unlock()
+	t.Lock()
+	defer t.Unlock()
 
 	node := &(t.Node)
 	for len(s) > 0 {
@@ -57,6 +57,9 @@ func (t *Tree) Add(s string) {
 }
 
 func (t *Tree) Contains(s string) bool {
+	t.RLock()
+	defer t.RUnlock()
+
 	node := t.Node
 	for len(s) > 0 {
 		if node == nil {
