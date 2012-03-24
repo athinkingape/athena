@@ -22,8 +22,8 @@ type Node struct {
 }
 
 type Tree struct {
-	root *Node
-	mu   sync.RWMutex
+	*Node
+	mu sync.RWMutex
 }
 
 func (t *Tree) Add(s string) {
@@ -34,7 +34,7 @@ func (t *Tree) Add(s string) {
 	t.mu.Lock()
 	defer t.mu.Unlock()
 
-	node := &(t.root)
+	node := &(t.Node)
 	for len(s) > 0 {
 		r, size := utf8.DecodeRuneInString(s)
 		if *node == nil {
@@ -54,6 +54,10 @@ func (t *Tree) Add(s string) {
 	}
 
 	(*node).Word = true
+}
+
+func (t *Tree) Contains(s string) bool {
+	return false
 }
 
 var runeBuf = []byte{0, 0, 0, 0}
