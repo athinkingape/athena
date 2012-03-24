@@ -37,9 +37,7 @@ func main() {
 		if isPrefix {
 			log.Fatalf("line bigger than buffer")
 		}
-		if len(line) >= 2 && line[0] == '"' && line[len(line)-1] == '"' {
-			line = line[1 : len(line)-1]
-		}
+
 		t.Add(string(line))
 
 		line, isPrefix, err = reader.ReadLine()
