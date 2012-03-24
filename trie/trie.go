@@ -17,13 +17,17 @@ import (
 
 type Node struct {
 	Left, Center, Right *Node
-	Rune                rune
-	Word                bool
+
+	// TODO(sanjay): optimize the following three fields into 2
+	Rune rune
+	Word bool
+	Id   int
 }
 
 type Tree struct {
 	*Node
 	sync.RWMutex
+	nodeList []*Node
 }
 
 func (t *Tree) Add(s string) {
@@ -38,7 +42,9 @@ func (t *Tree) Add(s string) {
 	for len(s) > 0 {
 		r, size := utf8.DecodeRuneInString(s)
 		if *node == nil {
-			*node = &Node{Rune: r}
+			n := &Node{Rune: r, Id: len(t.nodeList)}
+			t.nodeList = append(t.nodeList, n)
+			*node = n
 		}
 
 		if r == (*node).Rune {
