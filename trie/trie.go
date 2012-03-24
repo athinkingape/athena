@@ -57,7 +57,27 @@ func (t *Tree) Add(s string) {
 }
 
 func (t *Tree) Contains(s string) bool {
-	return false
+	node := t.Node
+	for len(s) > 0 {
+		if node == nil {
+			return false
+		}
+
+		r, size := utf8.DecodeRuneInString(s)
+
+		if r == node.Rune {
+			s = s[size:]
+			if len(s) > 0 {
+				node = node.Center
+			}
+		} else if r < (*node).Rune {
+			node = node.Left
+		} else {
+			node = node.Right
+		}
+	}
+
+	return node.Word
 }
 
 var runeBuf = []byte{0, 0, 0, 0}
