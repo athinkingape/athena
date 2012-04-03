@@ -33,10 +33,9 @@ func (s stateSet) Len() int {
 
 func (s stateSet) Less(i, j int) bool {
 	l, m := s[i], s[j]
-	if l.errValue < m.errValue {
-		return true
-	} else if m.errValue < l.errValue {
-		return false
+
+	if l.errValue != m.errValue {
+		return l.errValue < m.errValue
 	}
 
 	return l.nodeId < m.nodeId
